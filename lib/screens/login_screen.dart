@@ -1,19 +1,16 @@
 import 'package:flash_chat/constants.dart';
-import 'package:flash_chat/screens/chat_screen.dart';
+import 'package:flash_chat/controller/auth_controller.dart';
 import 'package:flash_chat/screens/widgets/coustom_btn.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   static const String id = "Login_Screem";
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -33,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 48.0,
             ),
             TextField(
+                controller: emailController,
                 onChanged: (value) {
                   //Do something with the user input.
                 },
@@ -42,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 8.0,
             ),
             TextField(
+                controller: passwordController,
                 onChanged: (value) {
                   //Do something with the user input.
                 },
@@ -52,7 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CoustomButton(
                 btnName: 'Log In',
-                onPressed: () {},
+                onPressed: () {
+                  AuthController.instance.login(emailController.text.trim(),
+                      passwordController.text.trim());
+                },
                 btnColor: Colors.lightBlueAccent)
           ],
         ),

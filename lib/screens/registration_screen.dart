@@ -1,25 +1,18 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/constants.dart';
-import 'package:flash_chat/screens/chat_screen.dart';
+import 'package:flash_chat/controller/auth_controller.dart';
 import 'package:flash_chat/screens/widgets/coustom_btn.dart';
 import 'package:flutter/material.dart';
 
-class RegistrationScreen extends StatefulWidget {
+class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({super.key});
   static const String id = "Register_Screem";
 
   @override
-  State<RegistrationScreen> createState() => _RegistrationScreenState();
-}
-
-class _RegistrationScreenState extends State<RegistrationScreen> {
-  final _auth = FirebaseAuth.instance;
-  TextEditingController emailC = TextEditingController();
-  TextEditingController passwordC = TextEditingController();
-  @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -39,7 +32,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
-                controller: emailC,
+                keyboardType: TextInputType.emailAddress,
+                controller: emailController,
                 onChanged: (value) {
                   //Do something with the user input.
                 },
@@ -49,7 +43,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 8.0,
             ),
             TextField(
-                controller: passwordC,
+                obscureText: true,
+                controller: passwordController,
                 onChanged: (value) {
                   //Do something with the user input.
                 },
@@ -60,18 +55,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             CoustomButton(
                 btnName: 'Register',
-                onPressed: () async {
-                  log(emailC.text.toString());
-                  log(passwordC.text.toString());
-                  try {
-                    final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: emailC.text, password: passwordC.text);
-                    if (newUser != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
-                    }
-                  } catch (e) {
-                    log("message");
-                  }
+                onPressed: () {
+                  AuthController.instance.register(emailController.text.trim(),
+                      passwordController.text.trim());
                 },
                 btnColor: Colors.blueAccent)
           ],

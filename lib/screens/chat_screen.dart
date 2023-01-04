@@ -1,20 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flash_chat/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+class ChatScreen extends StatelessWidget {
+  ChatScreen({
+    super.key,
+    this.email,
+  });
+  String? email;
+
   static const String id = "Chat_Screem";
-
-  @override
-  State<ChatScreen> createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends State<ChatScreen> {
-  final _auth = FirebaseAuth.instance;
-  late User user;
-  void getCurrentUser() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +22,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: const Icon(Icons.close),
               onPressed: () {
+                AuthController.instance.logOut();
                 //Implement logout functionality
               }),
         ],
@@ -36,6 +34,19 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              width: double.infinity,
+              height: 80,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.red, width: 2),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                'Hii... $email',
+                style: const TextStyle(fontSize: 21),
+              ),
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
