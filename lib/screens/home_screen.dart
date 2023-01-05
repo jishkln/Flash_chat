@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 
-class ChatScreen extends StatelessWidget {
-  ChatScreen({
+class HomeScreen extends StatelessWidget {
+  HomeScreen({
     super.key,
     this.email,
   });

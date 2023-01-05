@@ -59,7 +59,7 @@ class RegistrationScreen extends StatelessWidget {
                   AuthController.instance.register(emailController.text.trim(),
                       passwordController.text.trim());
                 },
-                btnColor: Colors.blueAccent)
+                btnColor: Colors.blueAccent),
           ],
         ),
       ),

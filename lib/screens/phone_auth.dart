@@ -1,17 +1,17 @@
-import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/controller/auth_controller.dart';
-import 'package:flash_chat/screens/phone_auth.dart';
+import 'package:flash_chat/screens/phone_verification.dart';
 import 'package:flash_chat/screens/widgets/coustom_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../constants.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-  static const String id = "Login_Screem";
+class PhoneLogin extends StatelessWidget {
+  const PhoneLogin({super.key});
+  static const String id = "Phone_screen";
 
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
+    var phoneController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -31,17 +31,8 @@ class LoginScreen extends StatelessWidget {
               height: 48.0,
             ),
             TextField(
-                controller: emailController,
-                onChanged: (value) {
-                  //Do something with the user input.
-                },
-                decoration:
-                    KInputDecoration.copyWith(hintText: 'Enter your email')),
-            const SizedBox(
-              height: 8.0,
-            ),
-            TextField(
-                controller: passwordController,
+                keyboardType: TextInputType.number,
+                controller: phoneController,
                 onChanged: (value) {
                   //Do something with the user input.
                 },
@@ -51,18 +42,13 @@ class LoginScreen extends StatelessWidget {
               height: 24.0,
             ),
             CoustomButton(
-                btnName: 'Log In',
+                btnName: 'Verify',
                 onPressed: () {
-                  AuthController.instance.login(emailController.text.trim(),
-                      passwordController.text.trim());
+                  AuthController.instance
+                      .lodinPhone('+91${phoneController.text.trim()}');
+                  Get.off(() => const OtpScreen());
                 },
                 btnColor: Colors.lightBlueAccent),
-            CoustomButton(
-                btnName: 'Phone ',
-                onPressed: () {
-                  Navigator.pushNamed(context, PhoneLogin.id);
-                },
-                btnColor: Colors.lightBlueAccent)
           ],
         ),
       ),
